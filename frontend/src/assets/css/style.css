@@ -1223,3 +1223,17 @@ input[type="checkbox"]{
 .admin .form-check-basis span, .admin .form-check-basis button{
 flex-basis: 40%;
 }
+
+
+
+/* Chrome, Safari, Edge, Opera  */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield !important;
+}

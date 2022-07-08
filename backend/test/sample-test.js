@@ -83,7 +83,7 @@ describe("HOTIE ENERGY",  function ()  {
     
     //let _value = await ethers.utils.parseEther('5')
     
-    let initialize = await staking.initiatePools([10,10,10,10,10,10,10,10],[100,100,100,100,100,100,100,100],[200,200,200,200,200,200,200,200])
+    let initialize = await staking.initiatePools([10,10,10,10,10,10,10,10],[25,2500,9000,19000,35000,58000,100000,176000],[1500,5000,12000,28000,40000,90000,120000,800000000])
     await initialize.wait()
    
     

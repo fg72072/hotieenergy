@@ -79,7 +79,7 @@ module.exports = {
     path: '../frontend/src/contract',
     runOnCompile: true,
     clear: true,
-    only: [':Staking$'],
+    only: [':Staking$',':HESTOKEN$',':IERC20Metadata$'],
     flat: true,
     spacing: 2,
     pretty: true,

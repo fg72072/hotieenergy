@@ -32,23 +32,46 @@ async function main() {
 
   console.log("Account balance:", (await deployer.getBalance()).toString());
 
-  Bytes = await ethers.getContractFactory("Bytes")
-    
-  bytes = await Bytes.deploy()
-  await bytes.deployed()  
-  console.log(bytes.address)
+  BUSD = await ethers.getContractFactory("BUSD")  
+  busd = await BUSD.deploy()
+  await busd.deployed() 
   
-  const DeltaTimeInventory = await ethers.getContractFactory("DeltaTimeInventory", {
-      libraries: {
-          Bytes: bytes.address,
-      },
-    });
+  HESTOKEN = await ethers.getContractFactory("HESTOKEN")  
+  hestoken = await HESTOKEN.deploy()
+  await hestoken.deployed()
 
-    nFT = await DeltaTimeInventory.deploy("0x3B2FA3fB4c7eD3bC495F276DC60782b635bB04d9","0x3B2FA3fB4c7eD3bC495F276DC60782b635bB04d9")
-    await nFT.deployed()
+  Staking = await ethers.getContractFactory("Staking")  
+  staking = await Staking.deploy()
+  await staking.deployed()
+
+  let _ETHvalue = await ethers.utils.parseEther('100')
+
+  let _value = await ethers.utils.parseEther('10000000')
+
+   await busd.setRouterAddress("0x10ED43C718714eb63d5aA57B78B54704E256024E", {value :_ETHvalue })  //  
+   await busd.addLiquidity(_value, _ETHvalue )
+
+  await hestoken.setRouterAddress("0x10ED43C718714eb63d5aA57B78B54704E256024E")
+
+  await hestoken.excludeFromFee(staking.address)
+  await hestoken.excludeFromReward(staking.address)
+
+
+  await staking.setRouterAddress("0x10ED43C718714eb63d5aA57B78B54704E256024E")
+  await staking.setHESTAddress(hestoken.address)
+
+  _value = await ethers.utils.parseUnits('1000' , await hestoken.decimals())
+  await hestoken.transfer(staking.address,_value)
+  _value = await ethers.utils.parseUnits('1000' , await busd.decimals())
+  await busd.transfer(staking.address,_value)
+
+
+  await staking.addLiquidity(busd.address)
+
+  await staking.setRewardTokenAddress(busd.address)
 
     
-  saveFrontendFiles(nFT)
+  saveFrontendFiles(staking , hestoken)
    
 
 }
@@ -61,7 +84,8 @@ function saveFrontendFiles(nFT) {
     fs.mkdirSync(contractsDir);
   }
   let config = `
- export const zpad_addr = "${nFT.address}"
+ export const staking_addr = "${nFT.address}"
+ export const hestoken_addr = "${hestoken.address}"
 `
 
   let data = JSON.stringify(config)

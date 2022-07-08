@@ -12,7 +12,7 @@
   "function daysPerMonth() view returns (uint256)",
   "function digitHolder() view returns (address)",
   "function getPair(address,address) view returns (address)",
-  "function initiatePools(uint8[8],uint8[8],uint8[8])",
+  "function initiatePools(uint8[8],uint256[8],uint256[8])",
   "function lastinitTime() view returns (uint256)",
   "function owner() view returns (address)",
   "function partner() view returns (address)",

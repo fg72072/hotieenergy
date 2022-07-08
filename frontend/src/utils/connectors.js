@@ -5,6 +5,7 @@ export const injectedConnector = new InjectedConnector({
         //1, // Mainet
         3, // Ropsten
         4, // Rinkeby
+        1337
         // 5, // Goerli
         //42, // Kovan
     ]

@@ -81,7 +81,7 @@ contract Staking is Ownable , Pausable , ReentrancyGuard {
         uniswapV2Router = _uniswapV2Router;
     }
 
-    function initiatePools(uint8[8] memory percentages , uint8[8] memory min , uint8[8] memory max) public onlyOwner{
+    function initiatePools(uint8[8] memory percentages , uint256[8] memory min , uint256[8] memory max) public onlyOwner{
         
         require(block.number > lastinitTime + blocksPerMonth , "connot initiate pools before one month");
         require(percentages.length == min.length && min.length == max.length && max.length == 8,"initialing error :: values");
